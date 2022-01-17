@@ -7,7 +7,7 @@ const isNumeric = (importe)=> {
 }
 
 const calculo = (importe) =>{
-    if(is_numeric(importe)){
+    if(isNumeric(importe)){
         alert("El importe + IVA es: $" + iva(importe));
     } else {
         alert("Ingrese un valor númerico");
