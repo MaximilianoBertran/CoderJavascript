@@ -78,10 +78,58 @@ const ordenamiento = (array, tipo = 'id') => {
     }
 }
 
+const generar = (listado_empleados, sueldos_liquidados) => {
+    var body = document.getElementsByTagName("body")[0];
+    for (let index = 0; index < listado_empleados.length; index++) {
+        let sueldo = sueldos_liquidados.find(elemento => elemento.id === listado_empleados[index].id);
+        var tabla   = document.createElement("table");
+        body.appendChild(tabla);
+        
+        tabla.insertAdjacentHTML("beforeend",
+            "<tr>" +
+                '<td colspan="2">Recibo de Haberes de ' + listado_empleados[index].apellido + ' ' + listado_empleados[index].nombre + ' - ' + listado_empleados[index].documento + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                '<td>Básico</td>' + 
+                '<td>' + sueldo.basic + '</td>'+
+            "</tr>" +
+            "<tr>" +
+                '<td>Antiguedad</td>' + 
+                '<td>' + sueldo.ant + '</td>'+
+            "</tr>" +
+            "<tr>" +
+                '<td>Horas extras al 50%</td>' + 
+                '<td>' + sueldo.h50 + '</td>'+
+            "</tr>" +
+            "<tr>" +
+                '<td>Horas extras al 100%</td>' + 
+                '<td>' + sueldo.h100 + '</td>'+
+            "</tr>" +
+            "<tr>" +
+                '<td>Obra Social</td>' + 
+                '<td>' + sueldo.os + '</td>'+
+            "</tr>" +
+            "<tr>" +
+                '<td>Ley 19032</td>' + 
+                '<td>' + sueldo.ley + '</td>'+
+            "</tr>" +
+            "<tr>" +
+                '<td>Impuesto a las Ganancias</td>' + 
+                '<td>' + sueldo.ig + '</td>'+
+            "</tr>" +
+            "<tr>" +
+                '<td>Neto</td>' + 
+                '<td>' + sueldo.neto + '</td>'+
+            "</tr>"
+        )
+        tabla.insertAdjacentHTML("beforeend","<br>");
+    }
+}
+
 let empleados = [
-    /* new Empleado(1,"Bond","James",22333666,'1972-08-20'),
+    new Empleado(1,"Bond","James",22333666,'1972-08-20'),
     new Empleado(3,"Perez", "Daniel", 55669988, '2015-01-12'),
-    new Empleado(2,"Bert", "Max", 33225588, '1986-10-25'), */
+    new Empleado(2,"Bert", "Max", 33225588, '1986-10-25'),
     new Empleado(4,"King", "Leon", 22997744, '1998-03-05')
 ]
 
@@ -101,7 +149,7 @@ for (let index = 0; index < empleados.length; index++) {
 
 let check = false;
 let tipo = '';
-if (empleados.length < 1) {
+if (empleados.length > 1) {
     while(!check){
         tipo = prompt("Ordenar empleado por ID(ingrese id), ordenar por documento (ingrese dni) o alfabeticamente (ingrese alf)");
         check = validate(tipo);
@@ -109,51 +157,7 @@ if (empleados.length < 1) {
 }
 empleados_sort = ordenamiento(empleados, tipo);
 
-var body = document.getElementsByTagName("body")[0];
+generar(empleados_sort, sueldos);
 
 
-for (let index = 0; index < empleados_sort.length; index++) {
-    let sueldo = sueldos.find(elemento => elemento.id === empleados_sort[index].id);
-    var tabla   = document.createElement("table");
-    body.appendChild(tabla);
-    
-    tabla.insertAdjacentHTML("beforeend",
-        "<tr>" +
-            '<td colspan="2">Recibo de Haberes de ' + empleados_sort[index].apellido + ' ' + empleados_sort[index].nombre + ' - ' + empleados_sort[index].documento + "</td>" +
-        "</tr>" +
-        "<tr>" +
-            '<td>Básico</td>' + 
-            '<td>' + sueldo.basic + '</td>'+
-        "</tr>" +
-        "<tr>" +
-            '<td>Antiguedad</td>' + 
-            '<td>' + sueldo.ant + '</td>'+
-        "</tr>" +
-        "<tr>" +
-            '<td>Horas extras al 50%</td>' + 
-            '<td>' + sueldo.h50 + '</td>'+
-        "</tr>" +
-        "<tr>" +
-            '<td>Horas extras al 100%</td>' + 
-            '<td>' + sueldo.h100 + '</td>'+
-        "</tr>" +
-        "<tr>" +
-            '<td>Obra Social</td>' + 
-            '<td>' + sueldo.os + '</td>'+
-        "</tr>" +
-        "<tr>" +
-            '<td>Ley 19032</td>' + 
-            '<td>' + sueldo.ley + '</td>'+
-        "</tr>" +
-        "<tr>" +
-            '<td>Impuesto a las Ganancias</td>' + 
-            '<td>' + sueldo.ig + '</td>'+
-        "</tr>" +
-        "<tr>" +
-            '<td>Neto</td>' + 
-            '<td>' + sueldo.neto + '</td>'+
-        "</tr>"
-    )
-    tabla.insertAdjacentHTML("beforeend","<br>");
-}
 
