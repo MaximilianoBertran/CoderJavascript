@@ -91,35 +91,35 @@ const generar = (listado_empleados, sueldos_liquidados) => {
             "</tr>" +
             "<tr>" +
                 '<td>Básico</td>' + 
-                '<td>' + sueldo.basic + '</td>'+
+                '<td>$' + sueldo.basic + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Antiguedad</td>' + 
-                '<td>' + sueldo.ant + '</td>'+
+                '<td>$' + sueldo.ant + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Horas extras al 50%</td>' + 
-                '<td>' + sueldo.h50 + '</td>'+
+                '<td>$' + sueldo.h50 + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Horas extras al 100%</td>' + 
-                '<td>' + sueldo.h100 + '</td>'+
+                '<td>$' + sueldo.h100 + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Obra Social</td>' + 
-                '<td>' + sueldo.os + '</td>'+
+                '<td>$' + sueldo.os + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Ley 19032</td>' + 
-                '<td>' + sueldo.ley + '</td>'+
+                '<td>$' + sueldo.ley + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Impuesto a las Ganancias</td>' + 
-                '<td>' + sueldo.ig + '</td>'+
+                '<td>$' + sueldo.ig + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Neto</td>' + 
-                '<td>' + sueldo.neto + '</td>'+
+                '<td>$' + sueldo.neto + '</td>'+
             "</tr>"
         )
         tabla.insertAdjacentHTML("beforeend","<br>");
