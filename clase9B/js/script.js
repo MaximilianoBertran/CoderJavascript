@@ -13,7 +13,7 @@ class Recibo {
     constructor(id, basic, extras50, extras100, no_remu = 0, fing){
         this.id = id;
         this.basic = basic;
-        this.ant = this.antiguedad(fing);
+        this.ant = (basic * 0.01) * this.antiguedad(fing);
         this.h50 = this.horasExtras(50, extras50);
         this.h100 = this.horasExtras(100, extras100);
         this.remu = this.basic + this.h50 + this.h100;
@@ -38,8 +38,7 @@ class Recibo {
     antiguedad(date) {
         let hoy = new Date();
         let fing = new Date(date);
-        let ant = hoy.getFullYear() - fing.getFullYear();
-        return (this.basic * 0.01) * ant;
+        return hoy.getFullYear() - fing.getFullYear();
     }
 
     ganancias() { 
@@ -55,28 +54,16 @@ const validate = (tipo) => {
     }
 }
 
-const ordenamiento = (array, tipo = 'id') => {
-    if(tipo == 'id'){
-        return array.sort((a,b) => {
-            if (a.id > b.id) {
-                return 1;
-            }
-            if (a.id < b.id) {
-                return -1;
-            }
-            return 0; 
-        });
-    } else {
-        return array.sort((a,b) => {
-            if (a.apellido > b.apellido) {
-                return 1;
-            }
-            if (a.apellido < b.apellido) {
-                return -1;
-            }
-            return 0; 
-        });
-    }
+const ordenamiento = (array) => {
+    return array.sort((a,b) => {
+        if (a.apellido > b.apellido) {
+            return 1;
+        }
+        if (a.apellido < b.apellido) {
+            return -1;
+        }
+        return 0; 
+    });
 }
 
 const generar = (listado_empleados, sueldos_liquidados) => {
@@ -88,7 +75,10 @@ const generar = (listado_empleados, sueldos_liquidados) => {
         
         tabla.insertAdjacentHTML("beforeend",
             "<tr>" +
-                '<td colspan="2">Recibo de Haberes de ' + listado_empleados[index].apellido + ' ' + listado_empleados[index].nombre + ' - ' + listado_empleados[index].documento + "</td>" +
+                '<td colspan="2">Recibo de Haberes de ' + listado_empleados[index].apellido + ' ' + listado_empleados[index].nombre + ' - ' + listado_empleados[index].documento + ' - ' + listado_empleados[index].fing + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                '<td>Documento: ' + listado_empleados[index].documento + ' </td><td> F/ingreso: ' + listado_empleados[index].fing + "</td>" +
             "</tr>" +
             "<tr>" +
                 '<td>Básico</td>' + 
@@ -121,33 +111,11 @@ const generar = (listado_empleados, sueldos_liquidados) => {
             "<tr>" +
                 '<td>Neto</td>' + 
                 '<td> $ ' + sueldo.neto + '</td>'+
-            "</tr>"
+            "</tr>" +
+            "<hr>"
         )
         tabla.insertAdjacentHTML("beforeend","<br>");
     }
-}
-
-const liquidacion = () =>{
-    for (let index = 0; index < empleados.length; index++) {
-        alert("Ingrese la información del empelado " + empleados[index].apellido + ' ' + empleados[index].nombre + ' - ' + empleados[index].documento);
-        let h50 = Number(prompt("Ingrese número de horas extras al 50%"));
-        let h100 = Number(prompt("Ingrese número de horas extras al 100%"));
-        let no_remu = Number(prompt("Ingrese la suma de importes no remunerativos"));
-        
-        sueldos.push(new Recibo(empleados[index].id, empleados[index].basic, h50, h100, no_remu, empleados[index].fing)); 
-    } 
-    
-    let check = false;
-    let tipo = '';
-    if (empleados.length > 1) {
-        while(!check){
-            tipo = prompt("Ordenar empleado por ID(ingrese id), ordenar por documento (ingrese dni) o alfabeticamente (ingrese alf)");
-            check = validate(tipo);
-        }
-    }
-    empleados_sort = ordenamiento(empleados, tipo);
-    
-    generar(empleados_sort, sueldos);
 }
 
 const chargeData = () => {
@@ -159,13 +127,26 @@ const chargeData = () => {
     document.getElementById('basic_agente').innerHTML = "$ " + empleados[position].basic;
 }
 
-const chargeRecibo = () => {
-    let h50 = document.getElementById('h50_agente').value
-    let h100 = document.getElementById('h100_agente').value
-    let no_remu = document.getElementById('noremu_agente').value
+const chargeRecibo = (e) => {
+    e.preventDefault();
+    let h50 = Number(document.getElementById('h50_agente').value)
+    let h100 = Number(document.getElementById('h100_agente').value)
+    let no_remu = Number(document.getElementById('noremu_agente').value)
     sueldos.push(new Recibo(empleados[position].id, empleados[position].basic, h50, h100, no_remu, empleados[position].fing));
     position++;
-    chargeData();
+    if(position < empleados.length) {
+        chargeData();
+        document.getElementById('h50_agente').value = 0;
+        document.getElementById('h100_agente').value = 0;
+        document.getElementById('noremu_agente').value = 0;
+    } else {
+        document.getElementById('infoDiv').style.display = 'none';
+        empleados_sort = ordenamiento(empleados);
+        generar(empleados_sort, sueldos);
+    }
+    if(position == (empleados.length-1)){
+        document.getElementById('btn-next').innerHTML = "Finalizar";
+    }
 }
 
 function validarLogin(e){

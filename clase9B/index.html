@@ -25,7 +25,7 @@
     <main name="main" role="main" class="flex-shrink-0 col-md-8 mx-auto">
         <h1>Bojorman</h1>
         <h3>Calculo de sueldos sin calculo de Impuesto a las Ganancias.</h3>
-        <p>Ingresa tu sueldo básico.</p>
+        <br>
         <div id="infoDiv" style="display: none;">
             <table class="w-75">
                 <tr>
@@ -54,10 +54,10 @@
                         <th>Acciones</th>
                     </tr>
                     <tr>
-                        <td><input type="number" id="h50_agente"/></td>
-                        <td><input type="number" id="h100_agente"/></td>
-                        <td><input type='number' step='0.01' id="noremu_agente"/></td>
-                        <td><button type='submit'></button></td>
+                        <td><input type="number" id="h50_agente" value="0" /></td>
+                        <td><input type="number" id="h100_agente" value="0" /></td>
+                        <td><input type="number" step='0.01' id="noremu_agente" value="0" /></td>
+                        <td><button type='submit' id="btn-next">Siguiente</button></td>
                     </tr>
                 </table>
             </form>
