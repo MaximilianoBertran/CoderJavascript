@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Liquidación de sueldos</title>
+</head>
+<body class="d-flex flex-column">
+    <nav class="navbar navbar-expand-md col-md-8 mx-auto">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-2" id="li-name" style="display:none">
+                <span id="nombre_usuario" class="navMobile active d-block"></span>
+            </li>
+            <li class="nav-item mr-2" id="li-form" style="display:block">
+                <form action="#" id="login_form">
+                    <span>Usuario:</span>
+                    <input type="text" name="user" id="user"/>
+                    <button type="submit">Ingresar</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+    <main name="main" role="main" class="flex-shrink-0 col-md-8 mx-auto">
+        <h1>Bojorman</h1>
+        <h3>Calculo de sueldos sin calculo de Impuesto a las Ganancias.</h3>
+        <p>Ingresa tu sueldo básico.</p>
+        <div id="infoDiv" style="display: none;">
+            <table class="w-75">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Documento</th>
+                    <th>Ingreso</th>
+                    <th>Básico</th>
+                </tr>
+                <tr>
+                    <td id="id_agente"></td>
+                    <td id="nombre_agente"></td>
+                    <td id="apellido_agente"></td>
+                    <td id="documento_agente"></td>
+                    <td id="fing_agente"></td>
+                    <td id="basic_agente"></td>
+                </tr>
+            </table>
+            <form action="#" id="dataForm">
+                <table>
+                    <tr>
+                        <th>Horas al 50</th>
+                        <th>Horas al 100</th>
+                        <th>Monto no Remunerativo</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tr>
+                        <td><input type="number" id="h50_agente"/></td>
+                        <td><input type="number" id="h100_agente"/></td>
+                        <td><input type='number' step='0.01' id="noremu_agente"/></td>
+                        <td><button type='submit'></button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
+</html>
