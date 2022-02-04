@@ -27,9 +27,9 @@ class Recibo {
 
     horasExtras(tipo, cantidad, regimen = 8) {
         if(tipo == 50){
-            return (cantidad * ((this.basic / (regimen + 30)) * 1.5));
+            return (cantidad * ((this.basic / 30) / regimen)) * 1.5;
         } else if(tipo == 100) {
-            return (cantidad * ((this.basic / (regimen + 30)) * 2));
+            return (cantidad * ((this.basic / 30) / regimen)) * 2;
         } else {
             return 0;
         }
@@ -85,35 +85,35 @@ const generar = (listado_empleados, sueldos_liquidados) => {
             "</tr>" +
             "<tr>" +
                 '<td>Básico</td>' + 
-                '<td> $ ' + number_format(sueldo.basic) + '</td>'+
+                '<td> ' + number_format(sueldo.basic) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Antiguedad</td>' + 
-                '<td> $ ' + number_format(sueldo.ant) + '</td>'+
+                '<td> ' + number_format(sueldo.ant) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Horas extras al 50%</td>' + 
-                '<td> $ ' + number_format(sueldo.h50) + '</td>'+
+                '<td> ' + number_format(sueldo.h50) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Horas extras al 100%</td>' + 
-                '<td> $ ' + number_format(sueldo.h100) + '</td>'+
+                '<td> ' + number_format(sueldo.h100) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Obra Social</td>' + 
-                '<td> $ ' + number_format(sueldo.os) + '</td>'+
+                '<td> ' + number_format(sueldo.os) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Ley 19032</td>' + 
-                '<td> $ ' + number_format(sueldo.ley) + '</td>'+
+                '<td> ' + number_format(sueldo.ley) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Impuesto a las Ganancias</td>' + 
-                '<td> $ ' + number_format(sueldo.ig) + '</td>'+
+                '<td> ' + number_format(sueldo.ig) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Neto</td>' + 
-                '<td> $ ' + number_format(sueldo.neto) + '</td>'+
+                '<td> ' + number_format(sueldo.neto) + '</td>'+
             "</tr>"
         )
         tabla.insertAdjacentHTML("beforeend","<br>");
@@ -184,7 +184,7 @@ function checkLogin(){
 }
 
 function number_format(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return new Intl.NumberFormat('es-AR', {style: "currency", currency: "ARS", decimal: 2}).format(x);
 }
 
 function date_format(x) {
