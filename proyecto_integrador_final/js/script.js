@@ -151,6 +151,11 @@ const chargeRecibo = (e) => {
     }
 }
 
+const salir = () => {
+    sessionStorage.removeItem("username");
+    window.location.reload(true);
+}
+
 function validarLogin(e){
     e.preventDefault();
     let username = document.getElementById('user').value;
@@ -176,7 +181,6 @@ function checkLogin(){
         document.getElementById('li-name').style.display = 'none';
         chargeData();
         document.getElementById('infoDiv').style.display = 'none';
-        alert("Necesita ingresar su usuario para poder operar.");
     }
 }
 
@@ -207,5 +211,10 @@ loginForm.addEventListener("submit", validarLogin);
 
 let dataForm = document.getElementById("dataForm");
 dataForm.addEventListener("submit", chargeRecibo);
+
+let btnSalir = document.getElementById("btn-salir");
+btnSalir.onclick = () => {
+    salir();
+}
 
 checkLogin();
