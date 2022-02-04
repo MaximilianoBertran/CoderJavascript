@@ -162,13 +162,30 @@ function validarLogin(e){
     document.getElementById('infoDiv').style.display = 'block';
 }
 
+
+function checkLogin(){
+    if(sessionStorage.getItem("username")){
+        let username = sessionStorage.getItem("username");
+        document.getElementById('nombre_usuario').innerHTML = "Bienvenido " + username;
+        document.getElementById('li-form').style.display = 'none';
+        document.getElementById('li-name').style.display = 'block';
+        chargeData()
+        document.getElementById('infoDiv').style.display = 'block';
+    } else {
+        document.getElementById('li-form').style.display = 'block';
+        document.getElementById('li-name').style.display = 'none';
+        chargeData();
+        document.getElementById('infoDiv').style.display = 'none';
+        alert("Necesita ingresar su usuario para poder operar.");
+    }
+}
+
 function number_format(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 function date_format(x) {
     let d = new Date(x);
-    console.log(d, x);
     return ((d.getDate()+1) < 10 ? '0' : '') + (d.getDate()+1) + "/" + ((d.getMonth()+1) < 10 ? '0' : '') + (d.getMonth()+1) + "/" + d.getFullYear();
 }
 
@@ -183,10 +200,12 @@ let empleados = [
 
 let sueldos = [];
 
-alert("Necesita ingresar su usuario para poder operar.");
+
 
 let loginForm = document.getElementById("login_form");
 loginForm.addEventListener("submit", validarLogin);
 
 let dataForm = document.getElementById("dataForm");
 dataForm.addEventListener("submit", chargeRecibo);
+
+checkLogin();
