@@ -71,48 +71,50 @@ const generar = (listado_empleados, sueldos_liquidados) => {
     for (let index = 0; index < listado_empleados.length; index++) {
         let sueldo = sueldos_liquidados.find(elemento => elemento.id === listado_empleados[index].id);
         var tabla   = document.createElement("table");
+        tabla.className = "table table-bordered table-striped";
         body.appendChild(tabla);
         
         tabla.insertAdjacentHTML("beforeend",
+            "<thead>" +
             "<tr>" +
-                '<td colspan="2">Recibo de Haberes de ' + listado_empleados[index].apellido + ' ' + listado_empleados[index].nombre + ' - ' + listado_empleados[index].documento + ' - ' + listado_empleados[index].fing + "</td>" +
+                '<th colspan="2">Recibo de Haberes de ' + listado_empleados[index].apellido + ' ' + listado_empleados[index].nombre + ' - ' + listado_empleados[index].documento + ' - ' + date_format(listado_empleados[index].fing) + "</th>" +
             "</tr>" +
+            "</thead>" +
             "<tr>" +
-                '<td>Documento: ' + listado_empleados[index].documento + ' </td><td> F/ingreso: ' + listado_empleados[index].fing + "</td>" +
+                '<td>Documento: ' + listado_empleados[index].documento + ' </td><td> Fecha de ingreso: ' + date_format(listado_empleados[index].fing) + "</td>" +
             "</tr>" +
             "<tr>" +
                 '<td>Básico</td>' + 
-                '<td> $ ' + sueldo.basic + '</td>'+
+                '<td> $ ' + number_format(sueldo.basic) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Antiguedad</td>' + 
-                '<td> $ ' + sueldo.ant + '</td>'+
+                '<td> $ ' + number_format(sueldo.ant) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Horas extras al 50%</td>' + 
-                '<td> $ ' + sueldo.h50 + '</td>'+
+                '<td> $ ' + number_format(sueldo.h50) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Horas extras al 100%</td>' + 
-                '<td> $ ' + sueldo.h100 + '</td>'+
+                '<td> $ ' + number_format(sueldo.h100) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Obra Social</td>' + 
-                '<td> $ ' + sueldo.os + '</td>'+
+                '<td> $ ' + number_format(sueldo.os) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Ley 19032</td>' + 
-                '<td> $ ' + sueldo.ley + '</td>'+
+                '<td> $ ' + number_format(sueldo.ley) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Impuesto a las Ganancias</td>' + 
-                '<td> $ ' + sueldo.ig + '</td>'+
+                '<td> $ ' + number_format(sueldo.ig) + '</td>'+
             "</tr>" +
             "<tr>" +
                 '<td>Neto</td>' + 
-                '<td> $ ' + sueldo.neto + '</td>'+
-            "</tr>" +
-            "<hr>"
+                '<td> $ ' + number_format(sueldo.neto) + '</td>'+
+            "</tr>"
         )
         tabla.insertAdjacentHTML("beforeend","<br>");
     }
@@ -123,8 +125,8 @@ const chargeData = () => {
     document.getElementById('nombre_agente').innerHTML = empleados[position].nombre;
     document.getElementById('apellido_agente').innerHTML = empleados[position].apellido;
     document.getElementById('documento_agente').innerHTML = empleados[position].documento;
-    document.getElementById('fing_agente').innerHTML = empleados[position].fing;
-    document.getElementById('basic_agente').innerHTML = "$ " + empleados[position].basic;
+    document.getElementById('fing_agente').innerHTML = date_format(empleados[position].fing);
+    document.getElementById('basic_agente').innerHTML = "$ " + number_format(empleados[position].basic);
 }
 
 const chargeRecibo = (e) => {
@@ -158,6 +160,16 @@ function validarLogin(e){
     sessionStorage.setItem("username", username );
     chargeData()
     document.getElementById('infoDiv').style.display = 'block';
+}
+
+function number_format(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function date_format(x) {
+    let d = new Date(x);
+    console.log(d, x);
+    return ((d.getDate()+1) < 10 ? '0' : '') + (d.getDate()+1) + "/" + ((d.getMonth()+1) < 10 ? '0' : '') + (d.getMonth()+1) + "/" + d.getFullYear();
 }
 
 let position = 0;
