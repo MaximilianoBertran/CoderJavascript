@@ -159,23 +159,22 @@ const salir = () => {
 function validarLogin(e){
     e.preventDefault();
     let username = document.getElementById('user').value;
-    document.getElementById('nombre_usuario').innerHTML = "Bienvenido " + username;
+    sessionStorage.setItem("username", username );
+    setLogin(username);
+}
+
+function setLogin(user){
+    let username = user
+    document.getElementById('nombre_usuario').innerHTML = "Bienvenido <strong>" + username + "</strong>";
     document.getElementById('li-form').style.display = 'none';
     document.getElementById('li-name').style.display = 'block';
-    sessionStorage.setItem("username", username );
     chargeData()
     document.getElementById('infoDiv').style.display = 'block';
 }
 
-
 function checkLogin(){
     if(sessionStorage.getItem("username")){
-        let username = sessionStorage.getItem("username");
-        document.getElementById('nombre_usuario').innerHTML = "Bienvenido " + username;
-        document.getElementById('li-form').style.display = 'none';
-        document.getElementById('li-name').style.display = 'block';
-        chargeData()
-        document.getElementById('infoDiv').style.display = 'block';
+        setLogin(sessionStorage.getItem("username"));
     } else {
         document.getElementById('li-form').style.display = 'block';
         document.getElementById('li-name').style.display = 'none';
